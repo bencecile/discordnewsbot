@@ -260,11 +260,10 @@ class TwitterUpdater:
             self.sendMessages()
 
         # Find out the next Twitter API usage reset (15 minute intervals)
-        nextResetTime = self.twitterClient.CheckRateLimit("/lists/statuses.json").reset
+        # nextResetTime = self.twitterClient.CheckRateLimit("/lists/statuses.json").reset
 
-        # Schedule that time for our next update
-        # Wait for an extra second just to be safe
-        self.scheduler.enterabs(nextResetTime + 1, 0, self.doUpdate)
+        # Don't schedule anything and just make this a one-shot update
+        # self.scheduler.enterabs(nextResetTime + 1, 0, self.doUpdate)
 
         # Log the finishing time too
         logging.info(f"Finished a status update at {datetime.today()}")
